@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل باقة - منصة المشاريع والاستثمار</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-black min-h-screen transition-colors duration-300">
+
+    <main>
+        <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+
+            <div class="flex items-center justify-between mb-8 pb-3 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">تعديل باقة: باقة النمو</h1>
+                
+                <button onclick="window.history.back()"
+                    class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"></path>
+                    </svg>
+                    رجوع
+                </button>
+            </div>
+            <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 p-6 md:p-8 lg:w-3/4 xl:w-2/3 mx-auto">
+                <form action="#" method="POST">
+                    
+                    <div class="mb-5">
+                        <label for="package-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">اسم الباقة</label>
+                        <input type="text" id="package-name" name="packageName" required value="باقة النمو (Growth Plan)"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-4 py-2.5 text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 transition-colors"
+                            placeholder="مثال: الباقة الذهبية لرواد الأعمال">
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="package-price" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">سعر الباقة (بالريال السعودي)</label>
+                        <input type="number" id="package-price" name="packagePrice" required min="0" step="0.01" value="2500"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-4 py-2.5 text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 transition-colors"
+                            placeholder="مثال: 1500">
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label for="package-features" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">المميزات</label>
+                        <textarea id="package-features" name="packageFeatures" rows="4" required
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-4 py-2.5 text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 transition-colors"
+                            placeholder="أدخل مميزات الباقة، يفضل فصل كل ميزة بسطر جديد.&#10;مثال:&#10;- ميزة الوصول لـ 10 مشاريع&#10;- دعم فني متواصل">- إنشاء 5 مشاريع شهرياً
+- الوصول لجميع أدوات التحليل المتقدمة
+- دعم فني 24/7 VIP
+- جلسة استشارية شهرية مع خبير</textarea>
+                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">يمكنك فصل كل ميزة بسطر جديد ليسهل عرضها لاحقاً.</p>
+                    </div>
+
+                    <div class="mb-8 pt-5 border-t border-gray-200 dark:border-gray-700">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">نوع الباقة (يجب اختيار نوع واحد)</label>
+                        <div class="flex flex-col sm:flex-row gap-6">
+                            
+                            <div class="flex items-center">
+                                <input id="type-investor" name="packageType" type="radio" value="investor" 
+                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900">
+                                <label for="type-investor" class="mr-3 block text-base text-gray-700 dark:text-gray-300">للمستثمرين</label>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input id="type-entrepreneur" name="packageType" type="radio" value="entrepreneur" required checked
+                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900">
+                                <label for="type-entrepreneur" class="mr-3 block text-base text-gray-700 dark:text-gray-300">لرواد الأعمال</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <button type="submit"
+                            class="flex items-center gap-2 px-6 py-3 rounded-lg text-base font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            حفظ التعديلات
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </div>
+    </main>
+    
+</body>
+</html>

@@ -121,7 +121,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="mangeMony.html" class="group flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium bg-indigo-600 dark:bg-indigo-700 text-white hover:bg-indigo-700 dark:hover:bg-indigo-800">
+                    <a href="mangeMony.html" class="group flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg>
                         <span x-show="isSidebarOpen" class="duration-300 ease-linear">الإدارة المالية</span>
                     </a>
@@ -155,7 +155,7 @@
                 </li>
 
                 <li>
-                    <a href="mangeUsers.html" class="group flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="mangeUsers.html" class="group flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium bg-indigo-600 dark:bg-indigo-700 text-white hover:bg-indigo-700 dark:hover:bg-indigo-800">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 5v14M5 12h14"></path></svg>
                         <span x-show="isSidebarOpen" class="duration-300 ease-linear">إدارة المستخدمين</span>
                     </a>
@@ -282,139 +282,136 @@
 
 <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-            <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-b pb-3 border-gray-200 dark:text-white dark:border-gray-700">الإدارة المالية</h1>
+            <div class="flex items-center justify-between mb-8 pb-3 border-b border-gray-200 dark:border-gray-700">
+    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">إدارة المستخدمين</h1>
 
-<div class="rounded-xl border border-gray-200 bg-white dark:bg-gray-800 shadow-lg dark:border-gray-700 overflow-hidden">
-    <div class="p-6">
-        <div class="mb-4">
-            <input type="text" placeholder="بحث..."
-                   class="w-50% p-2 border border-gray-300 dark:border-gray-600 rounded-full focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-800">
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-900">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                            #
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                            البيان
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                            المبلغ (ريال)
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                            الحالة
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                            التاريخ
-                        </th>
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">إجراءات</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
-                    
-                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">1</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            إيداع استثمار مشروع منصة التطوير
-                            <p class="text-xs text-gray-500 dark:text-gray-400">العميل: خالد المحمد</p>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400">+50,000</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">
-                                مكتمل
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-10-20</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="monyDetails.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">عرض</a>
-                        </td>
-                    </tr>
-
-                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">2</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            رسوم اشتراك الباقة المميزة
-                            <p class="text-xs text-gray-500 dark:text-gray-400">العميل: سارة علي</p>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400">+1,500</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">
-                                مكتمل
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-10-19</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="monyDetails.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">عرض</a>
-                        </td>
-                    </tr>
-                    
-                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">3</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            طلب سحب أرباح استثمار
-                            <p class="text-xs text-gray-500 dark:text-gray-400">العميل: فهد العتيبي</p>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400">-12,500</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100">
-                                قيد الانتظار
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-10-18</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="monyDetails.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">مراجعة</a>
-                        </td>
-                    </tr>
-                    
-                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">4</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            إيداع استثمار لمشروع جديد
-                            <p class="text-xs text-gray-500 dark:text-gray-400">العميل: نورة القحطاني</p>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-600 dark:text-gray-400">+35,000</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100">
-                                ملغى
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">2025-10-15</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="monyDetails.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">عرض</a>
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="mt-6 flex justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-4">
-            <p class="text-sm text-gray-600 dark:text-gray-400">
-                عرض 1 إلى 10 من 57 نتيجة
-            </p>
-            <div class="flex gap-2">
-                <button class="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50" disabled>
-                    السابق
-                </button>
-                <button class="px-3 py-1 text-sm font-medium text-white bg-indigo-600 rounded-lg">
-                    1
-                </button>
-                <button class="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
-                    2
-                </button>
-                <button class="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
-                    التالي
-                </button>
-            </div>
-        </div>
-        
-    </div>
+    <a href="addUser.html"
+        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        إضافة مستخدم
+    </a>
 </div>
+<div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+    <div class="p-6">
+        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">قائمة مديري النظام والمشرفين</h4>
+    </div>
+
+    <div class="hidden lg:block">
+        <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 px-6 py-4 font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-t-xl">
+            <div class="col-span-1">الاسم</div>
+            <div class="col-span-2">البريد الإلكتروني</div>
+            <div class="col-span-1 text-center">الدور</div>
+            <div class="col-span-1 text-center">الحالة</div>
+            <div class="col-span-1 text-center">الإجراءات</div>
+        </div>
+        
+        <div class="text-sm">
+            
+            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <div class="col-span-1 text-gray-900 dark:text-white font-medium">علي محمد</div>
+                <div class="col-span-2 text-gray-700 dark:text-gray-300">ali.mohammed@admin.com</div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                        المدير العام
+                    </span>
+                </div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
+                        نشط
+                    </span>
+                </div>
+                <div class="col-span-1 flex justify-center gap-3">
+                    <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
+                                تعديل
+                            </a>
+                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
+                                حذف
+                            </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <div class="col-span-1 text-gray-900 dark:text-white font-medium">سارة فهد</div>
+                <div class="col-span-2 text-gray-700 dark:text-gray-300">sara.fahad@platform.com</div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
+                        مشرف
+                    </span>
+                </div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
+                        نشط
+                    </span>
+                </div>
+                <div class="col-span-1 flex justify-center gap-3">
+                    <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
+                                تعديل
+                            </a>
+                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
+                                حذف
+                            </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <div class="col-span-1 text-gray-900 dark:text-white font-medium">فهد خالد</div>
+                <div class="col-span-2 text-gray-700 dark:text-gray-300">fahad.khaled@platform.com</div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
+                        مشرف
+                    </span>
+                </div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-red-100 dark:bg-red-900/50 px-3 py-1 text-xs font-medium text-red-600 dark:text-red-400">
+                        موقوف
+                    </span>
+                </div>
+                <div class="col-span-1 flex justify-center gap-3">
+                   <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
+                                تعديل
+                            </a>
+                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
+                                حذف
+                            </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <div class="col-span-1 text-gray-900 dark:text-white font-medium">نورة سعد</div>
+                <div class="col-span-2 text-gray-700 dark:text-gray-300">noura.saad@platform.com</div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
+                        مشرف مالي
+                    </span>
+                </div>
+                <div class="col-span-1 text-center">
+                    <span
+                        class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
+                        نشط
+                    </span>
+                </div>
+                <div class="col-span-1 flex justify-center gap-3">
+                    <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
+                                تعديل
+                            </a>
+                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
+                                حذف
+                            </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
         </div>
     </main>
 </div>

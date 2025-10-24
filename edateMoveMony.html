@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل الحركة المالية - منصة المشاريع</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+        // إعداد الوضع الداكن
+        if (localStorage.getItem('isDark') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
+</head>
+
+<body 
+    class="bg-gray-50 dark:bg-black transition-colors duration-300"
+    x-data="{ isDark: localStorage.getItem('isDark') === 'true' }"
+    :class="{'dark': isDark}"
+>
+    <div class="flex flex-1 flex-col overflow-y-auto overflow-x-hidden min-h-screen">
+        <main>
+            <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                
+                <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b pb-3 border-gray-200 dark:border-gray-700">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">تعديل الحركة المالية</h1>
+                    <nav>
+                        <ol class="flex items-center gap-2">
+                            <li class="text-indigo-600 dark:text-indigo-400 font-medium">تعديل البيان INV-001025</li>
+                            <li class="text-indigo-600 dark:text-indigo-400">/</li>
+
+                            <li>                <button onclick="window.history.back()"
+                    class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14"></path>
+                    </svg>
+                    رجوع
+                </button></li>
+                        </ol>
+                    </nav>
+                </div>
+
+
+                <form action="#" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 p-6 md:p-8">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">تعديل بيانات الحركة</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">الرقم المرجعي للحركة</label>
+                                    <input type="text" value="INV-001025" disabled
+                                           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-500 cursor-not-allowed">
+                                </div>
+
+                                <div>
+                                    <label for="amount" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">المبلغ (ريال)</label>
+                                    <input type="number" id="amount" name="amount" value="50000" required
+                                           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">
+                                </div>
+                                
+                                <div>
+                                    <label for="client" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">العميل المصدر</label>
+                                    <select id="client" name="client"
+                                            class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">
+                                        <option value="khaled" selected>خالد المحمد</option>
+                                        <option value="sara">سارة علي</option>
+                                        <option value="fahd">فهد العتيبي</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="project" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">المشروع المرتبط</label>
+                                    <select id="project" name="project"
+                                            class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">
+                                        <option value="dev_platform" selected>منصة التطوير العقاري</option>
+                                        <option value="marketing_camp">حملة تسويقية جديدة</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">تاريخ الحركة</label>
+                                    <input type="date" id="date" name="date" value="2025-10-20" required
+                                           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">
+                                </div>
+
+                                <div>
+                                    <label for="payment_method" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">وسيلة الدفع</label>
+                                    <select id="payment_method" name="payment_method"
+                                            class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">
+                                        <option value="bank" selected>تحويل بنكي</option>
+                                        <option value="cash">نقداً</option>
+                                        <option value="card">بطاقة ائتمانية</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="sm:col-span-2">
+                                    <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">البيان المفصل للحركة</label>
+                                    <textarea id="description" name="description" rows="3" required
+                                              class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">إيداع استثمار مشروع منصة التطوير، الدفعة الأولى من الاتفاقية، باسم العميل خالد المحمد.</textarea>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 p-6 md:p-8">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">إدارة المرفقات (إثبات الدفع)</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center gap-3">
+                                        <svg class="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-white">إيصال تحويل بنكي.pdf</span>
+                                    </div>
+                                    <button type="button" class="text-red-600 dark:text-red-400 hover:text-red-800 text-sm font-medium">حذف</button>
+                                </div>
+                                
+                                <div>
+                                    <label for="new_attachment" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">إضافة مرفق جديد</label>
+                                    <input type="file" id="new_attachment" name="new_attachment"
+                                           class="w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-gray-700 dark:file:text-white dark:file:hover:bg-gray-600"
+                                           accept=".pdf, .jpg, .png">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        
+                        <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 p-6 md:p-8">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">ملخص الحالة</h3>
+                            
+                            <div class="mb-5">
+                                <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">تعديل حالة الحركة</label>
+                                <select id="status" name="status"
+                                        class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-900">
+                                    <option value="completed" selected>مكتمل</option>
+                                    <option value="pending">قيد الانتظار</option>
+                                    <option value="cancelled">ملغى</option>
+                                </select>
+                            </div>
+
+                            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">تاريخ آخر تحديث</p>
+                                <p class="text-gray-900 dark:text-white font-medium">2025-10-24 11:30</p>
+                            </div>
+
+                        </div>
+
+                        <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 p-6 md:p-8 mt-8">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">تنفيذ التعديل</h3>
+                            <div class="space-y-3">
+                                
+                                <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    حفظ التعديلات
+                                </button>
+
+                                <a href="#" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    إلغاء
+                                </a>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </form>
+                
+            </div>
+        </main>
+    </div>
+</body>
+</html>
