@@ -21,7 +21,8 @@
         }
         /* هذه الخاصية هي المسؤولة عن الانزلاق السلس للمحتوى ورأس الصفحة */
         .main-content-area {
-            transition: margin-right 0.3s ease-linear;
+            /* تم إزالة منطق الهامش هنا والاعتماد على 'flex' في الشاشات الكبيرة */
+            transition: margin-right 0.3s ease-linear; 
         }
         .chart-legend-item {
             cursor: pointer;
@@ -31,12 +32,18 @@
 </head>
 
 <body x-data="{ 
-        // 🔑 هذا هو التعريف الرئيسي الوحيد
-        isSidebarOpen: true, 
-        isDark: localStorage.getItem('isDark') === 'true' 
-    }"
+    // 🔑 هذا هو التعريف الرئيسي الوحيد
+    isSidebarOpen: window.innerWidth >= 1024, // ابدأ بـ 'مفتوح' على الشاشات الكبيرة
+    isDark: localStorage.getItem('isDark') === 'true' 
+}"
     :class="{'dark': isDark}"
-    class="bg-gray-50 dark:bg-black transition-colors duration-300">
+    class="bg-gray-50 dark:bg-black transition-colors duration-300"
+    @resize.window="isSidebarOpen = window.innerWidth >= 1024 ? isSidebarOpen : false"
+>
+    <div x-show="isSidebarOpen && window.innerWidth < 1024" 
+         @click="isSidebarOpen = false"
+         class="fixed inset-0 z-40 bg-black opacity-40 lg:hidden">
+    </div>
 
     <script>
         if (localStorage.getItem('isDark') === 'true') {
@@ -55,16 +62,33 @@
 
     <div class="flex h-screen overflow-hidden">
 
-<aside x-bind:class="isSidebarOpen ? 'w-64' : 'w-20'" 
-    class="hidden lg:flex flex-col h-full overflow-y-auto 
-           duration-300 ease-linear transition-all 
-           fixed right-0 z-40 bg-white dark:bg-black 
-           shadow-xl dark:shadow-2xl border-l border-gray-200 dark:border-gray-700" 
+<aside x-bind:class="{
+    'w-64': isSidebarOpen,
+    'w-20': !isSidebarOpen && window.innerWidth >= 1024,
+    'w-64 transform translate-x-0': isSidebarOpen && window.innerWidth < 1024,
+    'w-64 transform translate-x-64': !isSidebarOpen && window.innerWidth < 1024 // إخفاء القائمة إلى اليمين
+}" 
+    class="flex flex-col h-full overflow-y-auto 
+            duration-300 ease-linear transition-all 
+            fixed right-0 z-50 bg-white dark:bg-black 
+            shadow-xl dark:shadow-2xl border-l border-gray-200 dark:border-gray-700
+            lg:relative lg:transform-none lg:translate-x-0" 
     dir="rtl">
 
     <div class="flex items-center justify-between gap-2 px-6 py-4 border-b border-gray-200 dark:border-gray-600">
-        <a x-show="isSidebarOpen" href="#" class="flex items-center gap-2">
-            <span class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400">المنصة</span>
+        <button 
+            @click="isSidebarOpen = !isSidebarOpen" 
+            class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 lg:hidden">
+            <svg x-show="isSidebarOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <svg x-show="!isSidebarOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <a x-show="isSidebarOpen || window.innerWidth >= 1024" href="#" class="flex items-center gap-2">
+            <img src="images/logo.png" alt="شعار الشركة" class="w-24 h-full object-contain">
         </a>
 
         <button 
@@ -157,223 +181,232 @@
         </div>
     </div>
 </aside>
-<div x-bind:style="isSidebarOpen ? 'margin-right: 16rem;' : 'margin-right: 5rem;'"
-            class="main-content-area relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 
-            <header dir="rtl" class="sticky top-0 z-30 flex w-full bg-white drop-shadow-sm dark:bg-black">
-                <div class="flex flex-grow items-center justify-between py-4 px-6 border-b border-gray-200 dark:border-gray-700">
-                    <div x-data="{ isProfileOpen: false }" class="flex items-center gap-3">
-                        <a href="#" @click.prevent="isProfileOpen = !isProfileOpen"
-                            class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-4">
-                            <span class="h-10 w-10 rounded-full overflow-hidden">
-                                <img src="https://ui-avatars.com/api/?name=محمد&background=4f46e5&color=fff" alt="User"
-                                    class="rounded-full h-full w-full object-cover">
-                            </span>
-                            <span class="hidden text-right lg:block">
-                                <span class="block text-sm font-medium text-gray-900 dark:text-white">محمد أحمد</span>
-                                <span class="block text-xs text-gray-500 dark:text-gray-400">mohammed@gmail.com</span>
-                            </span>
-                        </a>
+<div x-bind:class="{
+    // تم إزالة منطق الهامش (lg:mr-64 و lg:mr-20) لأنه يتعارض مع وضع lg:relative في السايدبار
+    'mr-0': true // دائمًا لا يوجد هامش على اليمين للموبايل
+}"
+     class="main-content-area relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden transition-all duration-300 ease-linear">
 
-                        <div x-show="isProfileOpen" @click.outside="isProfileOpen = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 scale-95"
-                            x-transition:enter-end="opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="opacity-100 scale-100"
-                            x-transition:leave-end="opacity-0 scale-95"
-                            class="absolute right-4 mt-2.5 flex w-72 flex-col rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
-                            <ul class="flex flex-col gap-4 border-b border-gray-200 dark:border-gray-700 py-5 px-6">
-                                <li><a href="#" class="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600">حسابي</a></li>
-                                <li><a href="#" class="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600">الإعدادات</a></li>
-                            </ul>
-                            <button
-                                class="flex items-center gap-3 py-3 px-6 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"></path>
-                                </svg>
-                                تسجيل الخروج
-                            </button>
-                        </div>
-                    </div>
+    <header dir="rtl" class="sticky top-0 z-30 flex w-full bg-white drop-shadow-sm dark:bg-black">
+        <div class="flex flex-grow items-center justify-between py-4 px-4 md:px-6 border-b border-gray-200 dark:border-gray-700">
+            
+            <button 
+                @click="isSidebarOpen = true" 
+                class="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 lg:hidden">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
 
-                    <div class="flex items-center gap-3">
-                        <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open"
-                                class="p-2 relative rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700">
-                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                    <path d="M13.73 21a2 2 0 01-3.46 0"></path>
-                                </svg>
-                                <span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-600"></span>
-                            </button>
+            <div x-data="{ isProfileOpen: false }" class="flex items-center gap-3 relative">
+                <a href="#" @click.prevent="isProfileOpen = !isProfileOpen"
+                    class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-4">
+                    <span class="h-10 w-10 rounded-full overflow-hidden">
+                        <img src="https://ui-avatars.com/api/?name=محمد&background=4f46e5&color=fff" alt="User"
+                            class="rounded-full h-full w-full object-cover">
+                    </span>
+                    <span class="hidden text-right sm:block"> <span class="block text-sm font-medium text-gray-900 dark:text-white">محمد أحمد</span>
+                        <span class="block text-xs text-gray-500 dark:text-gray-400">mohammed@gmail.com</span>
+                    </span>
+                </a>
 
-                            <div x-show="open" @click.outside="open = false"
-                                x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0 scale-95"
-                                x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-75"
-                                x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-95"
-                                class="absolute left-0 mt-2.5 w-72 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
-                                <div class="px-4 py-3 border-b dark:border-gray-700">
-                                    <h5 class="text-sm font-medium text-gray-900 dark:text-white">الإشعارات (3)</h5>
-                                </div>
-                                <div class="p-4 text-gray-600 dark:text-gray-300 text-sm">لا توجد إشعارات جديدة</div>
-                            </div>
-                        </div>
-
-                        <button @click="/* دالة تغيير اللغة */"
-                            class="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9zm0 0c2.485 0 4.5 4.03 4.5 9S14.485 21 12 21m0-18c-2.485 0-4.5 4.03-4.5 9S9.515 21 12 21m-9-9h18" />
-                            </svg>
-                            <span class="text-sm font-medium">AR / EN</span>
-                        </button>
-
-                        <button @click="toggleDarkMode($data)"
-                            class="p-2 rounded-full border border-gray-200 dark:border-gray-700 transition-all duration-300"
-                            :class="isDark ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'">
-                            
-                            <svg x-show="!isDark" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                            
-                            <svg x-show="isDark" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                            </svg>
-                        </button>
-                    </div>
-
+                <div x-show="isProfileOpen" @click.outside="isProfileOpen = false"
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95"
+                    class="absolute right-0 top-full mt-2.5 flex w-60 sm:w-72 flex-col rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800 z-50"> <ul class="flex flex-col gap-4 border-b border-gray-200 dark:border-gray-700 py-5 px-6">
+                        <li><a href="#" class="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600">حسابي</a></li>
+                        <li><a href="#" class="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-indigo-600">الإعدادات</a></li>
+                    </ul>
+                    <button
+                        class="flex items-center gap-3 py-3 px-6 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"></path>
+                        </svg>
+                        تسجيل الخروج
+                    </button>
                 </div>
-            </header>
-            <main>
-                <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-                    <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-b pb-3 border-gray-200 dark:text-white dark:border-gray-700">نظرة عامة على المنصة</h1>
-                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 mb-10 ">
-                        <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
-                            <div class="flex items-center justify-between">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                                    <svg class="fill-blue-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg>
-                                </div>
-                                <span class="flex items-center gap-1 text-sm font-medium text-green-500 py-1 px-2 bg-green-100 rounded-full">+2.5%</span>
-                            </div>
-                            <div class="mt-3">
-                                <span class="text-sm font-medium text-gray-500 dark:text-gray-300">الإيرادات الإجمالية</span>
-                                <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">34,568.00 ر.س</h4>
-                            </div>
-                        </div>
+            </div>
 
-                        <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
-                            <div class="flex items-center justify-between">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-                                    <svg class="fill-green-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22l-4-4h8l-4 4zM12 2v10m-4-4l4 4 4-4"></path></svg>
-                                </div>
-                                <span class="flex items-center gap-1 text-sm font-medium text-red-500 py-1 px-2 bg-red-100 rounded-full">-0.8%</span>
-                            </div>
-                            <div class="mt-3">
-                                <span class="text-sm font-medium text-gray-500 dark:text-gray-300">صافي الأرباح</span>
-                                <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">12,190.50 ر.س</h4>
-                            </div>
-                        </div>
+            <div class="flex items-center gap-3">
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open"
+                        class="p-2 relative rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 01-3.46 0"></path>
+                        </svg>
+                        <span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-600"></span>
+                    </button>
 
-                        <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
-                            <div class="flex items-center justify-between">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
-                                    <svg class="fill-indigo-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M12 10a5 5 0 110-10 5 5 0 010 10z"></path></svg>
-                                </div>
-                                <span class="flex items-center gap-1 text-sm font-medium text-green-500 py-1 px-2 bg-green-100 rounded-full">+5.1%</span>
-                            </div>
-                            <div class="mt-3">
-                                <span class="text-sm font-medium text-gray-500 dark:text-gray-300">إجمالي المستخدمين</span>
-                                <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">2,450</h4>
-                            </div>
+                    <div x-show="open" @click.outside="open = false"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 scale-95"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
+                        class="absolute left-0 mt-2.5 w-72 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800 z-50">
+                        <div class="px-4 py-3 border-b dark:border-gray-700">
+                            <h5 class="text-sm font-medium text-gray-900 dark:text-white">الإشعارات (3)</h5>
                         </div>
+                        <div class="p-4 text-gray-600 dark:text-gray-300 text-sm">لا توجد إشعارات جديدة</div>
                     </div>
-
-                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-10">
-                        <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
-                            <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المستثمرين حسب الفئة</h4>
-                            <span class="text-sm text-gray-500 dark:text-gray-300">إجمالي 450 مستثمر نشط</span>
-                            <div class="mt-4 flex-1 h-44"> 
-                                <canvas id="investorsBarChart" class="w-full h-full"></canvas> 
-                            </div>
-                        </div>
-
-                        <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
-                            <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المشاريع حسب الفئة</h4>
-                            <span class="text-sm text-gray-500 dark:text-gray-300">إجمالي 85 مشروع نشط</span>
-                            <div class="mt-4 flex justify-center h-44"> 
-                                <canvas id="projectsPieChart" class="w-full h-full"></canvas> 
-                            </div>
-                            <div id="projectsPieLegend" class="mt-4 grid grid-cols-2 gap-3 text-sm font-medium"></div>
-                        </div>
-                    </div>
-
-
-                    <div class="flex flex-col gap-4">
-                        <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md flex justify-between items-center dark:bg-gray-800 dark:border-gray-700">
-                            <h4 class="text-lg font-bold text-gray-900 dark:text-white"> المشاريع المضافة</h4>
-                            <div class="relative w-44">
-                                <select id="addedProjects" class="w-full rounded border border-gray-300 bg-gray-50 py-2 px-3 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
-                                    <option value="all">عرض الجميع</option>
-                                    <option value="newest">الأحدث أولاً</option>
-                                    <option value="active">النشطة</option>
-                                    <option value="pending">المعلقة</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="rounded-xl border border-gray-200 bg-white shadow-md overflow-x-auto dark:bg-gray-800 dark:border-gray-700">
-                            <div class="grid grid-cols-7 border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 bg-gray-50 text-sm dark:bg-gray-900 dark:border-gray-700">
-                                <div class="col-span-2 font-semibold text-gray-900 dark:text-white">اسم المشروع</div>
-                                <div class="col-span-2 hidden sm:block font-semibold text-gray-900 dark:text-white">رائد المشروع</div>
-                                <div class="col-span-1 font-semibold text-gray-900 dark:text-white">الفئة</div>
-                                <div class="col-span-2 font-semibold text-gray-900 dark:text-white">المبلغ الاستثماري</div>
-                                <div class="col-span-1 font-semibold text-gray-900 text-center dark:text-white">الحالة</div>
-                                <div class="col-span-1 font-semibold text-gray-900 text-center dark:text-white">عرض</div>
-                            </div>
-                            <div class="grid grid-cols-7 border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
-                                <div class="col-span-2 text-gray-900 dark:text-gray-300">منصة فنتك للمدفوعات</div>
-                                <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">أحمد عبدالله</div>
-                                <div class="col-span-1 text-gray-900 dark:text-gray-300">مالية</div>
-                                <div class="col-span-2 text-gray-900 dark:text-gray-300">250,000 ر.س</div>
-                                <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-green-100 py-1 px-2 text-green-600 font-medium">نشط</span></div>
-                                <div class="col-span-1 text-center">
-                                    <button class="px-2 py-1 text-white hover:text-indigo-800 text-xs font-bold bg-blue-900 rounded-full">عرض</button>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-7 border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
-                                <div class="col-span-2 text-gray-900 dark:text-gray-300">تطبيق التوصيل السريع</div>
-                                <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">سارة علي</div>
-                                <div class="col-span-1 text-gray-900 dark:text-gray-300">تكنولوجيا</div>
-                                <div class="col-span-2 text-gray-900 dark:text-gray-300">500,000 ر.س</div>
-                                <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-red-100 py-1 px-2 text-red-600 font-medium">معلق</span></div>
-                                <div class="col-span-1 text-center">
-                                    <button class="px-2 py-1 text-white hover:text-indigo-800 text-xs font-bold bg-blue-900 rounded-full">عرض</button>
-                                </div>
-                            </div>
-                            
-                            <div class="grid grid-cols-7 border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
-                                <div class="col-span-2 text-gray-900 dark:text-gray-300">مزرعة نموذجية</div>
-                                <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">خالد فهد</div>
-                                <div class="col-span-1 text-gray-900 dark:text-gray-300">زراعية</div>
-                                <div class="col-span-2 text-gray-900 dark:text-gray-300">120,000 ر.س</div>
-                                <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-yellow-100 py-1 px-2 text-yellow-600 font-medium">قيد المراجعة</span></div>
-                                <div class="col-span-1 text-center">
-                                    <button class="px-2 py-1 text-white hover:text-indigo-800 text-xs font-bold bg-blue-900 rounded-full">عرض</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            </main>
+
+                <button @click="/* دالة تغيير اللغة */"
+                    class="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9zm0 0c2.485 0 4.5 4.03 4.5 9S14.485 21 12 21m0-18c-2.485 0-4.5 4.03-4.5 9S9.515 21 12 21m-9-9h18" />
+                    </svg>
+                    <span class="text-sm font-medium hidden sm:block">AR / EN</span> </button>
+
+                <button @click="toggleDarkMode($data)"
+                    class="p-2 rounded-full border border-gray-200 dark:border-gray-700 transition-all duration-300"
+                    :class="isDark ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'">
+                    
+                    <svg x-show="!isDark" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    
+                    <svg x-show="isDark" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
 
         </div>
-    </div>
+    </header>
+    <main>
+        <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-b pb-3 border-gray-200 dark:text-white dark:border-gray-700">نظرة عامة على المنصة</h1>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-10 ">
+                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                            <svg class="fill-blue-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg>
+                        </div>
+                        <span class="flex items-center gap-1 text-sm font-medium text-green-500 py-1 px-2 bg-green-100 rounded-full">+2.5%</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-300">الإيرادات الإجمالية</span>
+                        <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">34,568.00 ر.س</h4>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+                            <svg class="fill-green-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22l-4-4h8l-4 4zM12 2v10m-4-4l4 4 4-4"></path></svg>
+                        </div>
+                        <span class="flex items-center gap-1 text-sm font-medium text-red-500 py-1 px-2 bg-red-100 rounded-full">-0.8%</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-300">صافي الأرباح</span>
+                        <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">12,190.50 ر.س</h4>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
+                            <svg class="fill-indigo-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M12 10a5 5 0 110-10 5 5 0 010 10z"></path></svg>
+                        </div>
+                        <span class="flex items-center gap-1 text-sm font-medium text-green-500 py-1 px-2 bg-green-100 rounded-full">+5.1%</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-300">إجمالي المستخدمين</span>
+                        <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">2,450</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-10">
+                <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
+                    <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المستثمرين حسب الفئة</h4>
+                    <span class="text-sm text-gray-500 dark:text-gray-300">إجمالي 450 مستثمر نشط</span>
+                    <div class="mt-4 flex-1 h-44"> 
+                        <canvas id="investorsBarChart" class="w-full h-full"></canvas> 
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
+                    <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المشاريع حسب الفئة</h4>
+                    <span class="text-sm text-gray-500 dark:text-gray-300">إجمالي 85 مشروع نشط</span>
+                    <div class="mt-4 flex justify-center h-44"> 
+                        <canvas id="projectsPieChart" class="w-full h-full"></canvas> 
+                    </div>
+                    <div id="projectsPieLegend" class="mt-4 grid grid-cols-2 gap-3 text-sm font-medium"></div>
+                </div>
+            </div>
+
+
+            <div class="flex flex-col gap-4">
+                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md flex justify-between items-center dark:bg-gray-800 dark:border-gray-700">
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white"> المشاريع المضافة</h4>
+                    <div class="relative w-44">
+                        <select id="addedProjects" class="w-full rounded border border-gray-300 bg-gray-50 py-2 px-3 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
+                            <option value="all">عرض الجميع</option>
+                            <option value="newest">الأحدث أولاً</option>
+                            <option value="active">النشطة</option>
+                            <option value="pending">المعلقة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-gray-200 bg-white shadow-md overflow-x-auto dark:bg-gray-800 dark:border-gray-700">
+                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 bg-gray-50 text-sm dark:bg-gray-900 dark:border-gray-700">
+                        <div class="col-span-2 font-semibold text-gray-900 dark:text-white">اسم المشروع</div>
+                        <div class="col-span-2 hidden sm:block font-semibold text-gray-900 dark:text-white">رائد المشروع</div>
+                        <div class="col-span-1 font-semibold text-gray-900 dark:text-white">الفئة</div>
+                        <div class="col-span-2 hidden md:block font-semibold text-gray-900 dark:text-white">المبلغ الاستثماري</div> <div class="col-span-1 font-semibold text-gray-900 text-center dark:text-white">الحالة</div>
+                        <div class="col-span-1 font-semibold text-gray-900 text-center dark:text-white">عرض</div>
+                    </div>
+                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div class="col-span-2 text-gray-900 dark:text-gray-300">منصة فنتك للمدفوعات</div>
+                        <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">أحمد عبدالله</div>
+                        <div class="col-span-1 text-gray-900 dark:text-gray-300">مالية</div>
+                        <div class="col-span-2 hidden md:block text-gray-900 dark:text-gray-300">250,000 ر.س</div>
+                        <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-green-100 py-1 px-2 text-green-600 font-medium">نشط</span></div>
+                        <div class="col-span-1 text-center">
+                            <button class="px-2 py-1 text-white hover:text-indigo-800 text-xs font-bold bg-blue-900 rounded-full">عرض</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div class="col-span-2 text-gray-900 dark:text-gray-300">تطبيق التوصيل السريع</div>
+                        <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">سارة علي</div>
+                        <div class="col-span-1 text-gray-900 dark:text-gray-300">تكنولوجيا</div>
+                        <div class="col-span-2 hidden md:block text-gray-900 dark:text-gray-300">500,000 ر.س</div>
+                        <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-red-100 py-1 px-2 text-red-600 font-medium">معلق</span></div>
+                        <div class="col-span-1 text-center">
+                            <button class="px-2 py-1 text-white hover:text-indigo-800 text-xs font-bold bg-blue-900 rounded-full">عرض</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div class="col-span-2 text-gray-900 dark:text-gray-300">مزرعة نموذجية</div>
+                        <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">خالد فهد</div>
+                        <div class="col-span-1 text-gray-900 dark:text-gray-300">زراعية</div>
+                        <div class="col-span-2 hidden md:block text-gray-900 dark:text-gray-300">120,000 ر.س</div>
+                        <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-yellow-100 py-1 px-2 text-yellow-600 font-medium">قيد المراجعة</span></div>
+                        <div class="col-span-1 text-center">
+                            <button class="px-2 py-1 text-white hover:text-indigo-800 text-xs font-bold bg-blue-900 rounded-full">عرض</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+</div>
 
 <script>
 // ... كود Chart.js ...
@@ -472,86 +505,81 @@ document.addEventListener('DOMContentLoaded', () => {
     generateLegend();
 
     // ------------------------------------
-    // 2. مخطط المستثمرين (الطولي - Bar Chart)
+    // 2. مخطط المستثمرين (العمودي - Column Chart) 
     // ------------------------------------
     const ctxBar = document.getElementById('investorsBarChart').getContext('2d');
-    const investorsBarChart = new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-            labels: projectCategories, // أسماء الفئات تظهر هنا
-            datasets: [{
-                label: 'عدد المستثمرين',
-                data: investorCounts,
-                backgroundColor: baseColors,
-                borderColor: getBorderColors(),
-                borderWidth: 1,
-                borderRadius: 6,
-                barThickness: 40, 
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            rtl: true,
-            indexAxis: 'x', // مخطط عمودي
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    rtl: true,
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if(label) label += ': ';
-                            if(context.parsed.y !== null) label += context.parsed.y.toLocaleString('ar-SA'); 
-                            return label;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    grid: { color: getChartTextColors().gridColor, drawBorder: false },
-                    ticks: { color: getChartTextColors().labelColor },
-                },
-                y: {
-                    grid: { display: true, drawBorder: false, color: getChartTextColors().gridColor }, 
-                    ticks: { color: getChartTextColors().labelColor, beginAtZero: true }
-                }
-            }
-        },
-        plugins: [{
-            beforeUpdate: function(chart) {
-                // تحديث ألوان المحاور والشبكة يدويًا عند التبديل
-                const colors = getChartTextColors();
-                chart.options.scales.x.grid.color = colors.gridColor;
-                chart.options.scales.x.ticks.color = colors.labelColor;
-                chart.options.scales.y.grid.color = colors.gridColor;
-                chart.options.scales.y.ticks.color = colors.labelColor;
-                chart.data.datasets.forEach(dataset => {
-                    dataset.borderColor = getBorderColors();
-                });
-            }
+const investorsBarChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+        labels: projectCategories,
+        datasets: [{
+            label: 'عدد المستثمرين',
+            data: investorCounts,
+            backgroundColor: baseColors,
+            borderColor: getBorderColors(),
+            borderWidth: 1,
+            // 💡 الإضافات الجديدة لتقليل العرض
+            barPercentage: 0.6, // نسبة عرض العمود من المساحة المتاحة للفئة (افتراضياً 0.9)
+            categoryPercentage: 0.8, // نسبة عرض الفئة من المساحة المتاحة (افتراضياً 0.8)
         }]
-    });
-
-    // تحديث المخططات عند تبديل الوضع المظلم
-    window.addEventListener('toggle-dark-mode', () => {
-        generateLegend();
-        projectsPieChart.update();
-        investorsBarChart.update();
-    });
-
-    // مراقبة تغير الفئة <html> لتحديث المخططات عند التبديل اليدوي
-    const observer = new MutationObserver((mutationsList) => {
-        for(const mutation of mutationsList){
-            if(mutation.type === 'attributes' && mutation.attributeName === 'class'){
-                // إطلاق حدث للتحديث
-                window.dispatchEvent(new Event('toggle-dark-mode'));
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        rtl: true,
+        scales: {
+            x: { // محور الفئات (الأسفل)
+                ticks: {
+                    color: getChartTextColors().labelColor,
+                },
+                grid: {
+                    color: getChartTextColors().gridColor,
+                },
+            },
+            y: { // محور القيم (اليسار)
+                beginAtZero: true, // يجب أن يبدأ من الصفر ليكون محور القيم
+                ticks: {
+                    color: getChartTextColors().labelColor,
+                },
+                grid: {
+                    color: getChartTextColors().gridColor,
+                },
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                rtl: true
             }
         }
+    },
+    plugins: [{
+        beforeUpdate: function(chart) {
+            // تحديث ألوان الحدود عند تغيير الوضع (الداكن/الفاتح)
+            const colors = getBorderColors();
+            chart.data.datasets[0].borderColor = colors;
+            chart.data.datasets[0].backgroundColor = baseColors; 
+            
+            // تحديث ألوان المحاور
+            const textColors = getChartTextColors();
+            chart.options.scales.x.ticks.color = textColors.labelColor;
+            chart.options.scales.x.grid.color = textColors.gridColor;
+            chart.options.scales.y.ticks.color = textColors.labelColor;
+            chart.options.scales.y.grid.color = textColors.gridColor;
+        }
+    }]
+});
+
+    // ------------------------------------
+    // تحديث المخططات عند تغيير الوضع (الداكن/الفاتح)
+    // ------------------------------------
+    window.addEventListener('toggle-dark-mode', () => {
+        projectsPieChart.update();
+        investorsBarChart.update();
+        generateLegend(); // إعادة توليد وسيلة الإيضاح لتحديث ألوان النص
     });
-    observer.observe(document.documentElement, { attributes: true });
 
 });
 </script>
