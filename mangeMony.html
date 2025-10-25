@@ -286,11 +286,27 @@
 
 <div class="rounded-xl border border-gray-200 bg-white dark:bg-gray-800 shadow-lg dark:border-gray-700 overflow-hidden">
     <div class="p-6">
-        <div class="mb-4">
-            <input type="text" placeholder="بحث..."
-                   class="w-50% p-2 border border-gray-300 dark:border-gray-600 rounded-full focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-800">
-        </div>
+        <div class="mb-6 flex flex-col sm:flex-row flex-wrap gap-4 justify-start items-center">
+            <input type="text" placeholder="بحث عن بيان أو عميل..."
+                class="p-2 border border-gray-300 dark:border-gray-600 rounded-full focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-800 transition duration-150 w-full sm:w-64">
 
+            <select class="p-2 border border-gray-300 dark:border-gray-600 rounded-full focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-800 w-full sm:w-40 transition duration-150">
+                <option value="">جميع الحالات</option>
+                <option value="completed">مكتمل</option>
+                <option value="pending">قيد الانتظار</option>
+                <option value="cancelled">ملغى</option>
+            </select>
+
+            <select class="p-2 border border-gray-300 dark:border-gray-600 rounded-full focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-800 w-full sm:w-40 transition duration-150">
+                <option value="">جميع الحركات</option>
+                <option value="income">إيداع (دخل)</option>
+                <option value="expense">سحب (مصروف)</option>
+            </select>
+            
+            <button class="w-full sm:w-28 p-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-150">
+                تصفير
+            </button>
+        </div>
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-900">

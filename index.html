@@ -286,7 +286,8 @@
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-b pb-3 border-gray-200 dark:text-white dark:border-gray-700">نظرة عامة على المنصة</h1>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-10 ">
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10 ">
                 <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center justify-between">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
@@ -315,6 +316,19 @@
 
                 <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center justify-between">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-100">
+                            <svg class="fill-yellow-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </div>
+                        <span class="flex items-center gap-1 text-sm font-medium text-green-500 py-1 px-2 bg-green-100 rounded-full">+12%</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-300">إجمالي الزوار</span>
+                        <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1 dark:text-white">15,800</h4>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
                             <svg class="fill-indigo-600 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M12 10a5 5 0 110-10 5 5 0 010 10z"></path></svg>
                         </div>
@@ -329,7 +343,7 @@
 
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-10">
                 <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
-                    <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المستثمرين حسب الفئة</h4>
+                    <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المستثمرين حسب الفئة </h4>
                     <span class="text-sm text-gray-500 dark:text-gray-300">إجمالي 450 مستثمر نشط</span>
                     <div class="mt-4 flex-1 h-44"> 
                         <canvas id="investorsBarChart" class="w-full h-full"></canvas> 
@@ -337,7 +351,7 @@
                 </div>
 
                 <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
-                    <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المشاريع حسب الفئة</h4>
+                    <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع المشاريع حسب الفئة </h4>
                     <span class="text-sm text-gray-500 dark:text-gray-300">إجمالي 85 مشروع نشط</span>
                     <div class="mt-4 flex justify-center h-44"> 
                         <canvas id="projectsPieChart" class="w-full h-full"></canvas> 
@@ -346,7 +360,46 @@
                 </div>
             </div>
 
+            <div class="flex flex-col gap-4 mb-10">
+                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md flex justify-between items-center dark:bg-gray-800 dark:border-gray-700">
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">إحصائيات الزوار حسب الدوله</h4>
+                    <div class="relative w-44">
+                        <select id="visitorsFilter" class="w-full rounded border border-gray-300 bg-gray-50 py-2 px-3 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
+                            <option value="last_6_months">آخر 6 أشهر</option>
+                            <option value="last_12_months">آخر 12 شهر</option>
+                            <option value="this_year">هذا العام</option>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
+                        <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">أعلى 5 دول زيارة </h4>
+                        <span class="text-sm text-gray-500 dark:text-gray-300">أكثر الدول توليداً للزوار خلال الفترة المحددة</span>
+                        <div class="mt-4 overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="countryVisitorsTable">
+                                <thead class="bg-gray-50 dark:bg-gray-900">
+                                    <tr>
+                                        <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">الدولة</th>
+                                        <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">الزوار</th>
+                                        <th scope="col" class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">النسبة</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700" id="countryVisitorsTableBody">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-300 flex flex-col dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
+                        <h4 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">توزيع الزوار حسب الجهاز </h4>
+                        <span class="text-sm text-gray-500 dark:text-gray-300">تغير نسب استخدام الأجهزة (جوال/سطح المكتب) على مدى 6 أشهر</span>
+                        <div class="mt-4 flex-1 h-60">
+                            <canvas id="sessionsLineChart" class="w-full h-full"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="flex flex-col gap-4">
                 <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md flex justify-between items-center dark:bg-gray-800 dark:border-gray-700">
                     <h4 class="text-lg font-bold text-gray-900 dark:text-white">جدول المشاريع المضافة</h4>
@@ -410,32 +463,54 @@
 </div>
 
 <script>
-// ... كود Chart.js ...
+// دالة للحصول على لون الحدود بناءً على الوضع المظلم
+const getBorderColors = () => {
+    // ألوان المخططات الأصلية والمخططات الجديدة
+    const baseColors = ['#4f46e5', '#3b82f6', '#10b981', '#6b7280']; // Indigo, Blue, Green, Gray
+    const isDark = document.documentElement.classList.contains('dark');
+    return isDark ? ['#6366f1', '#60a5fa', '#34d399', '#9ca3af'] : baseColors;
+};
+
+// دالة للحصول على لون النص والشبكة
+const getChartTextColors = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    return {
+        labelColor: isDark ? '#d1d5db' : '#4b5563',
+        gridColor: isDark ? 'rgba(75, 85, 99, 0.2)' : 'rgba(229, 231, 235, 1)',
+        lineColor: isDark ? '#1f2937' : '#f3f4f6', // لون خلفية الخط (للمخطط الخطي)
+    };
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // بيانات وهمية للمخططات
+    // بيانات وهمية لمخططات المشاريع والمستثمرين (الأصلية)
     const projectCategories = ['تكنولوجيا', 'عقارات', 'مالية', 'أخرى'];
     const projectData = [35, 30, 20, 15]; // النسبة المئوية للمشاريع
     const investorCounts = [180, 135, 90, 45]; // عدد المستثمرين الفعلي (مجموع 450)
     const baseColors = ['#4f46e5', '#3b82f6', '#10b981', '#6b7280']; // Indigo, Blue, Green, Gray
 
-    // دالة للحصول على لون الحدود بناءً على الوضع المظلم
-    const getBorderColors = () => {
-        const isDark = document.documentElement.classList.contains('dark');
-        return isDark ? ['#6366f1', '#60a5fa', '#34d399', '#9ca3af'] : baseColors;
-    };
+    // ====================================
+    // 🚀 بيانات إحصائيات الزوار (المعدلة - الموقع الجغرافي والأجهزة)
+    // ====================================
 
-    // دالة للحصول على لون النص والشبكة
-    const getChartTextColors = () => {
-        const isDark = document.documentElement.classList.contains('dark');
-        return {
-            labelColor: isDark ? '#d1d5db' : '#4b5563',
-            gridColor: isDark ? 'rgba(75, 85, 99, 0.2)' : 'rgba(229, 231, 235, 1)',
-        };
-    };
+    // بيانات جدول توزيع الزوار حسب الدولة (المخطط الجديد - جدول)
+    const countryVisitorsData = [
+        { country: 'المملكة العربية السعودية', visitors: 9480, percentage: 60 },
+        { country: 'مصر', visitors: 3160, percentage: 20 },
+        { country: 'الإمارات العربية المتحدة', visitors: 1580, percentage: 10 },
+        { country: 'الكويت', visitors: 790, percentage: 5 },
+        { country: 'بقية دول العالم', visitors: 790, percentage: 5 },
+    ];
+    const totalVisitors = 15800; // من بطاقة "إجمالي الزوار"
+
+    // بيانات الجلسات حسب الجهاز (المخطط الخطي الجديد)
+    const lineChartLabels = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'];
+    const desktopData = [4000, 4200, 4500, 4300, 4700, 5000];
+    const mobileData = [3000, 3100, 3500, 3600, 3800, 4000];
+    const tabletData = [500, 550, 600, 580, 620, 650];
 
     // ------------------------------------
-    // 1. مخطط المشاريع (الدائري - Pie Chart)
+    // 1. مخطط المشاريع (الدائري - Pie Chart) - الأصلي
     // ------------------------------------
     const ctxPie = document.getElementById('projectsPieChart').getContext('2d');
     const projectsPieChart = new Chart(ctxPie, {
@@ -479,8 +554,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }]
     });
 
-    // وسيلة الإيضاح المخصصة
-    function generateLegend() {
+    // وسيلة الإيضاح المخصصة للمشاريع
+    function generateProjectsLegend() {
         const legendContainer = document.getElementById('projectsPieLegend');
         if(!legendContainer) return;
 
@@ -503,83 +578,248 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    generateLegend();
+    generateProjectsLegend();
 
     // ------------------------------------
-    // 2. مخطط المستثمرين (العمودي - Column Chart) 
+    // 2. مخطط المستثمرين (العمودي - Column Chart) - الأصلي
     // ------------------------------------
     const ctxBar = document.getElementById('investorsBarChart').getContext('2d');
-const investorsBarChart = new Chart(ctxBar, {
-    type: 'bar',
-    data: {
-        labels: projectCategories,
-        datasets: [{
-            label: 'عدد المستثمرين',
-            data: investorCounts,
-            backgroundColor: baseColors,
-            borderColor: getBorderColors(),
-            borderWidth: 1,
-            // 💡 الإضافات الجديدة لتقليل العرض
-            barPercentage: 0.6, // نسبة عرض العمود من المساحة المتاحة للفئة (افتراضياً 0.9)
-            categoryPercentage: 0.8, // نسبة عرض الفئة من المساحة المتاحة (افتراضياً 0.8)
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        rtl: true,
-        scales: {
-            x: { // محور الفئات (الأسفل)
-                ticks: {
-                    color: getChartTextColors().labelColor,
+    const investorsBarChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: projectCategories,
+            datasets: [{
+                label: 'عدد المستثمرين',
+                data: investorCounts,
+                backgroundColor: baseColors,
+                borderColor: getBorderColors(),
+                borderWidth: 1,
+                barPercentage: 0.6,
+                categoryPercentage: 0.8,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            rtl: true,
+            scales: {
+                x: {
+                    ticks: {
+                        color: getChartTextColors().labelColor,
+                    },
+                    grid: {
+                        color: getChartTextColors().gridColor,
+                    },
                 },
-                grid: {
-                    color: getChartTextColors().gridColor,
-                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: getChartTextColors().labelColor,
+                    },
+                    grid: {
+                        color: getChartTextColors().gridColor,
+                    },
+                }
             },
-            y: { // محور القيم (اليسار)
-                beginAtZero: true, // يجب أن يبدأ من الصفر ليكون محور القيم
-                ticks: {
-                    color: getChartTextColors().labelColor,
+            plugins: {
+                legend: {
+                    display: false
                 },
-                grid: {
-                    color: getChartTextColors().gridColor,
-                },
+                tooltip: {
+                    rtl: true
+                }
             }
         },
-        plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: {
-                rtl: true
+        plugins: [{
+            beforeUpdate: function(chart) {
+                // تحديث ألوان الحدود عند تغيير الوضع (الداكن/الفاتح)
+                const colors = getBorderColors();
+                chart.data.datasets[0].borderColor = colors;
+                chart.data.datasets[0].backgroundColor = baseColors; // الألوان الأساسية لا تتغير
+                
+                // تحديث ألوان المحاور
+                const textColors = getChartTextColors();
+                chart.options.scales.x.ticks.color = textColors.labelColor;
+                chart.options.scales.x.grid.color = textColors.gridColor;
+                chart.options.scales.y.ticks.color = textColors.labelColor;
+                chart.options.scales.y.grid.color = textColors.gridColor;
             }
-        }
-    },
-    plugins: [{
-        beforeUpdate: function(chart) {
-            // تحديث ألوان الحدود عند تغيير الوضع (الداكن/الفاتح)
-            const colors = getBorderColors();
-            chart.data.datasets[0].borderColor = colors;
-            chart.data.datasets[0].backgroundColor = baseColors; 
-            
-            // تحديث ألوان المحاور
-            const textColors = getChartTextColors();
-            chart.options.scales.x.ticks.color = textColors.labelColor;
-            chart.options.scales.x.grid.color = textColors.gridColor;
-            chart.options.scales.y.ticks.color = textColors.labelColor;
-            chart.options.scales.y.grid.color = textColors.gridColor;
-        }
-    }]
-});
+        }]
+    });
+
+
+    // ====================================
+    // 🚀 مخططات إحصائيات الزوار (المعدلة - الموقع الجغرافي والأجهزة)
+    // ====================================
+
+    // ------------------------------------
+    // 3. جدول توزيع الزوار حسب الدولة (Table) - المخطط الجديد
+    // ------------------------------------
+    function generateCountryTable(data) {
+        const tableBody = document.getElementById('countryVisitorsTableBody');
+        if(!tableBody) return;
+        tableBody.innerHTML = ''; // تفريغ المحتوى القديم
+
+        data.forEach((item, index) => {
+            const row = tableBody.insertRow();
+            row.className = 'hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150';
+
+            // عمود الدولة
+            let cellCountry = row.insertCell();
+            cellCountry.className = 'px-3 py-2 text-sm font-medium text-gray-900 dark:text-white';
+            cellCountry.textContent = item.country;
+
+            // عمود الزوار
+            let cellVisitors = row.insertCell();
+            cellVisitors.className = 'px-3 py-2 text-sm text-gray-700 dark:text-gray-300';
+            cellVisitors.textContent = item.visitors.toLocaleString(); // تنسيق الرقم
+
+            // عمود النسبة
+            let cellPercentage = row.insertCell();
+            cellPercentage.className = 'px-3 py-2 text-sm';
+            cellPercentage.innerHTML = `
+                <div class="flex items-center">
+                    <span class="w-12 text-right text-gray-700 dark:text-gray-300">${item.percentage}%</span>
+                    <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700 mr-2">
+                        <div class="h-1 rounded-full" style="width: ${item.percentage}%; background-color: ${baseColors[index % baseColors.length]}"></div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    generateCountryTable(countryVisitorsData);
+    
+
+    // ------------------------------------
+    // 4. مخطط الجلسات حسب الجهاز (Line Chart) - تم التعديل إلى مخطط خطي
+    // ------------------------------------
+    const ctxLine = document.getElementById('sessionsLineChart').getContext('2d');
+    let sessionsLineChart; // تعريف المتغير خارج الدالة ليمكن الوصول إليه من دالة التحديث
+
+    function createSessionsLineChart() {
+        const chartTextColors = getChartTextColors();
+        const colors = ['#4f46e5', '#10b981', '#6b7280']; // Indigo (Desktop), Green (Mobile), Gray (Tablet)
+
+        sessionsLineChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: lineChartLabels,
+                datasets: [
+                    {
+                        label: 'سطح المكتب (Desktop)',
+                        data: desktopData,
+                        borderColor: colors[0],
+                        backgroundColor: colors[0] + '1A', // لون شفاف لخلفية المنطقة
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointBackgroundColor: colors[0],
+                    },
+                    {
+                        label: 'جوال (Mobile)',
+                        data: mobileData,
+                        borderColor: colors[1],
+                        backgroundColor: colors[1] + '1A', // لون شفاف لخلفية المنطقة
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointBackgroundColor: colors[1],
+                    },
+                    {
+                        label: 'جهاز لوحي (Tablet)',
+                        data: tabletData,
+                        borderColor: colors[2],
+                        backgroundColor: colors[2] + '1A',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointBackgroundColor: colors[2],
+                        hidden: true // إخفاء الأجهزة اللوحية مبدئياً لتركيز المخطط
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                rtl: true,
+                scales: {
+                    x: {
+                        ticks: {
+                            color: chartTextColors.labelColor,
+                        },
+                        grid: {
+                            color: chartTextColors.gridColor,
+                        },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: chartTextColors.labelColor,
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        },
+                        grid: {
+                            color: chartTextColors.gridColor,
+                        },
+                        title: {
+                            display: true,
+                            text: 'عدد الزوار',
+                            color: chartTextColors.labelColor
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        rtl: true,
+                        position: 'bottom',
+                        labels: {
+                            color: chartTextColors.labelColor,
+                            boxWidth: 12,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            },
+            plugins: [{
+                // دالة تحديث الألوان في الوضع الداكن/الفاتح
+                beforeUpdate: function(chart) {
+                    const textColors = getChartTextColors();
+                    chart.options.scales.x.ticks.color = textColors.labelColor;
+                    chart.options.scales.x.grid.color = textColors.gridColor;
+                    chart.options.scales.y.ticks.color = textColors.labelColor;
+                    chart.options.scales.y.grid.color = textColors.gridColor;
+                    chart.options.scales.y.title.color = textColors.labelColor;
+                    chart.options.plugins.legend.labels.color = textColors.labelColor;
+                }
+            }]
+        });
+    }
+
+    createSessionsLineChart();
+
 
     // ------------------------------------
     // تحديث المخططات عند تغيير الوضع (الداكن/الفاتح)
     // ------------------------------------
     window.addEventListener('toggle-dark-mode', () => {
+        // تحديث مخططات المشاريع والمستثمرين
         projectsPieChart.update();
         investorsBarChart.update();
-        generateLegend(); // إعادة توليد وسيلة الإيضاح لتحديث ألوان النص
+        generateProjectsLegend(); 
+        
+        // تحديث المخطط الخطي للجلسات
+        if (sessionsLineChart) {
+            sessionsLineChart.update();
+        }
+        
+        // ملاحظة: لا حاجة لتحديث الجدول (Table) بشكل خاص، فالخلفيات والخطوط تتحدث عبر Tailwind
     });
 
 });
