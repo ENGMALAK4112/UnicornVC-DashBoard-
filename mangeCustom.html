@@ -288,9 +288,10 @@
     <div class="p-6">
         <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
         
-        <input type="text" placeholder="بحث..."
-               class="w-full sm:max-w-xs p-2 border border-gray-300 dark:border-gray-600 rounded-full focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white text-gray-800 transition duration-150">
-        
+          <div class="relative flex-grow min-w-[200px]">
+             <input type="text" placeholder="بحث..." class="w-50% rounded-full border border-gray-300 bg-gray-50 py-2 pl-3 pr-7 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
+             <svg class="absolute top-1/2 right-1 -translate-y-1/2 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
         <div class="flex flex-wrap gap-4 w-full sm:w-auto sm:justify-end">
             
             <select id="package-status-filter"

@@ -284,60 +284,106 @@
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-900 border-b pb-3 border-gray-200 dark:text-white dark:border-gray-700">إدارة المشاريع</h1>
             <div class="flex flex-col gap-4">
-                <div class="rounded-xl border border-gray-200 bg-white p-4 md:p-5 shadow-md flex justify-between items-center dark:bg-gray-800 dark:border-gray-700">
-                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">جدول المشاريع المضافة</h4>
-                    <div class="relative w-44">
-                        <select id="addedProjects" class="w-full rounded border border-gray-300 bg-gray-50 py-2 px-3 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
-                            <option value="all">عرض الجميع</option>
-                            <option value="newest">الأحدث أولاً</option>
-                            <option value="active">النشطة</option>
-                            <option value="pending">المعلقة</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="rounded-xl border border-gray-200 bg-white shadow-md overflow-x-auto dark:bg-gray-800 dark:border-gray-700">
-                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 bg-gray-50 text-sm dark:bg-gray-900 dark:border-gray-700">
-                        <div class="col-span-2 font-semibold text-gray-900 dark:text-white">اسم المشروع</div>
-                        <div class="col-span-2 hidden sm:block font-semibold text-gray-900 dark:text-white">رائد المشروع</div>
-                        <div class="col-span-1 font-semibold text-gray-900 dark:text-white">الفئة</div>
-                        <div class="col-span-2 hidden md:block font-semibold text-gray-900 dark:text-white">المبلغ الاستثماري</div> <div class="col-span-1 font-semibold text-gray-900 text-center dark:text-white">الحالة</div>
-                        <div class="col-span-1 font-semibold text-gray-900 text-center dark:text-white">عرض</div>
-                    </div>
-                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
-                        <div class="col-span-2 text-gray-900 dark:text-gray-300">منصة فنتك للمدفوعات</div>
-                        <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">أحمد عبدالله</div>
-                        <div class="col-span-1 text-gray-900 dark:text-gray-300">مالية</div>
-                        <div class="col-span-2 hidden md:block text-gray-900 dark:text-gray-300">250,000 ر.س</div>
-                        <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-green-100 py-1 px-2 text-green-600 font-medium">نشط</span></div>
-                        <div class="col-span-1 text-center">
-                            <a href="viewProject.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">عرض</a>
+                <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    
+                    <div class="p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-gray-200 dark:border-gray-700">
+                        
+                        <div class="flex items-center gap-4 w-full sm:w-auto">
+                          <div class="relative flex-grow min-w-[200px]">
+                            <input type="text" placeholder="بحث..." class="w-50% rounded-full border border-gray-300 bg-gray-50 py-2 pl-3 pr-7 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
+                            <svg class="absolute top-1/2 right-1 -translate-y-1/2 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
-                    </div>
+                            
+                            <div class="relative w-40 hidden sm:block">
+                                <select id="addedProjectsFilter" class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 px-3 text-gray-700 text-sm focus:border-indigo-600 outline-none dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
+                                    <option value="all">حالة المشروع</option>
+                                    <option value="active">نشط</option>
+                                    <option value="pending">معلق</option>
+                                    <option value="review">قيد المراجعة</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
-                        <div class="col-span-2 text-gray-900 dark:text-gray-300">تطبيق التوصيل السريع</div>
-                        <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">سارة علي</div>
-                        <div class="col-span-1 text-gray-900 dark:text-gray-300">تكنولوجيا</div>
-                        <div class="col-span-2 hidden md:block text-gray-900 dark:text-gray-300">500,000 ر.س</div>
-                        <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-red-100 py-1 px-2 text-red-600 font-medium">معلق</span></div>
-                        <div class="col-span-1 text-center">
-                            <a href="viewProject.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">عرض</a>
-                        </div>
                     </div>
                     
-                    <div class="grid grid-cols-5 min-w-[700px] border-b border-gray-200 py-3 px-3 md:grid-cols-9 md:px-5 hover:bg-indigo-50 transition text-sm items-center dark:border-gray-700 dark:hover:bg-gray-700">
-                        <div class="col-span-2 text-gray-900 dark:text-gray-300">مزرعة نموذجية</div>
-                        <div class="col-span-2 hidden sm:block text-gray-900 dark:text-gray-300">خالد فهد</div>
-                        <div class="col-span-1 text-gray-900 dark:text-gray-300">زراعية</div>
-                        <div class="col-span-2 hidden md:block text-gray-900 dark:text-gray-300">120,000 ر.س</div>
-                        <div class="col-span-1 text-center"><span class="inline-flex rounded-full bg-yellow-100 py-1 px-2 text-yellow-600 font-medium">قيد المراجعة</span></div>
-                        <div class="col-span-1 text-center">
-                            <a href="viewProject.html" class="px-2 py-1 text-white text-xs font-bold bg-blue-900 rounded-full">عرض</a>
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto min-w-[700px] text-right">
+                            <thead>
+                                <tr class="bg-gray-50 text-sm border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+                                    <th class="py-3 px-3 md:px-5 font-semibold text-gray-900 dark:text-white whitespace-nowrap">اسم المشروع</th>
+                                    <th class="py-3 px-3 md:px-5 font-semibold text-gray-900 dark:text-white hidden sm:table-cell whitespace-nowrap">رائد المشروع</th>
+                                    <th class="py-3 px-3 md:px-5 font-semibold text-gray-900 dark:text-white whitespace-nowrap">الفئة</th>
+                                    <th class="py-3 px-3 md:px-5 font-semibold text-gray-900 dark:text-white hidden md:table-cell whitespace-nowrap">المبلغ الاستثماري</th>
+                                    <th class="py-3 px-3 md:px-5 font-semibold text-gray-900 text-center dark:text-white whitespace-nowrap">الحالة</th>
+                                    <th class="py-3 px-3 md:px-5 font-semibold text-gray-900 text-center dark:text-white whitespace-nowrap">إجراءات</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr class="text-sm border-b border-gray-200 hover:bg-indigo-50 transition dark:border-gray-700 dark:hover:bg-gray-700">
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 whitespace-nowrap">منصة فنتك للمدفوعات</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 hidden sm:table-cell whitespace-nowrap">أحمد عبدالله</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 whitespace-nowrap">مالية</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 hidden md:table-cell whitespace-nowrap">250,000 ر.س</td>
+                                    <td class="py-3 px-3 md:px-5 text-center whitespace-nowrap">
+                                        <span class="inline-flex rounded-full bg-green-100 py-1 px-2 text-green-600 font-medium">نشط</span>
+                                    </td>
+                                    <td class="py-3 px-3 md:px-5 text-center whitespace-nowrap">
+                                        <a href="viewProject.html" class="px-3 py-1 text-white text-xs font-bold bg-indigo-600 rounded-full hover:bg-indigo-700 transition">عرض</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="text-sm border-b border-gray-200 hover:bg-indigo-50 transition dark:border-gray-700 dark:hover:bg-gray-700">
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 whitespace-nowrap">تطبيق التوصيل السريع</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 hidden sm:table-cell whitespace-nowrap">سارة علي</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 whitespace-nowrap">تكنولوجيا</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 hidden md:table-cell whitespace-nowrap">500,000 ر.س</td>
+                                    <td class="py-3 px-3 md:px-5 text-center whitespace-nowrap">
+                                        <span class="inline-flex rounded-full bg-red-100 py-1 px-2 text-red-600 font-medium">معلق</span>
+                                    </td>
+                                    <td class="py-3 px-3 md:px-5 text-center whitespace-nowrap">
+                                        <a href="viewProject.html" class="px-3 py-1 text-white text-xs font-bold bg-indigo-600 rounded-full hover:bg-indigo-700 transition">عرض</a>
+                                    </td>
+                                </tr>
+                                
+                                <tr class="text-sm hover:bg-indigo-50 transition dark:hover:bg-gray-700">
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 whitespace-nowrap">مزرعة نموذجية</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 hidden sm:table-cell whitespace-nowrap">خالد فهد</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 whitespace-nowrap">زراعية</td>
+                                    <td class="py-3 px-3 md:px-5 text-gray-900 dark:text-gray-300 hidden md:table-cell whitespace-nowrap">120,000 ر.س</td>
+                                    <td class="py-3 px-3 md:px-5 text-center whitespace-nowrap">
+                                        <span class="inline-flex rounded-full bg-yellow-100 py-1 px-2 text-yellow-600 font-medium">قيد المراجعة</span>
+                                    </td>
+                                    <td class="py-3 px-3 md:px-5 text-center whitespace-nowrap">
+                                        <a href="viewProject.html" class="px-3 py-1 text-white text-xs font-bold bg-indigo-600 rounded-full hover:bg-indigo-700 transition">عرض</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            عرض <span class="font-semibold text-gray-900 dark:text-white">1</span> إلى <span class="font-semibold text-gray-900 dark:text-white">10</span> من أصل <span class="font-semibold text-gray-900 dark:text-white">57</span> مشروع
+                        </div>
+                        
+                        <div class="flex items-center gap-3">
+                            <button class="flex items-center justify-center rounded py-1 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50" disabled>
+                                السابق
+                            </button>
+                            <div class="flex items-center gap-1">
+                                <button class="h-8 w-8 rounded flex items-center justify-center bg-indigo-600 text-white text-sm font-medium">1</button>
+                                <button class="h-8 w-8 rounded flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium">2</button>
+                                <button class="h-8 w-8 rounded flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium">3</button>
+                            </div>
+                            <button class="flex items-center justify-center rounded py-1 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                التالي
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
         </div>
     </main>
 </div>
