@@ -6,7 +6,7 @@
     <title>لوحة التحكم - منصة المشاريع والاستثمار</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -24,6 +24,10 @@
             /* تم إزالة منطق الهامش هنا والاعتماد على 'flex' في الشاشات الكبيرة */
             transition: margin-right 0.3s ease-linear; 
         }
+        .chart-legend-item {
+            cursor: pointer;
+            user-select: none;
+        }
     </style>
 </head>
 
@@ -37,8 +41,8 @@
     @resize.window="isSidebarOpen = window.innerWidth >= 1024 ? isSidebarOpen : false"
 >
     <div x-show="isSidebarOpen && window.innerWidth < 1024" 
-        @click="isSidebarOpen = false"
-        class="fixed inset-0 z-40 bg-black opacity-40 lg:hidden">
+         @click="isSidebarOpen = false"
+         class="fixed inset-0 z-40 bg-black opacity-40 lg:hidden">
     </div>
 
     <script>
@@ -126,7 +130,25 @@
                         <span x-show="isSidebarOpen" class="duration-300 ease-linear">الإدارة المالية</span>
                     </a>
                 </li>
+                
+                <li>
+                    <a href="mangePayment.html" class="group flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                        <span x-show="isSidebarOpen" class="duration-300 ease-linear">إدارة الدفع</span>
+                    </a>
+                </li>
 
+                <li>
+                    <a href="mangeRecommendations.html" class="group flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M4.707 5.663l-.707-.707M12 20.732V21m3.636-6.364l.707.707M4.707 15.663l-.707-.707M18 12h-1m-7 5.663h4.673M17 12h-1M7 12H6m6 10a10 10 0 100-20 10 10 0 000 20z"></path>
+                        </svg>
+                        <span x-show="isSidebarOpen" class="duration-300 ease-linear">إدارة التوصيات الذكية</span>
+                    </a>
+                </li>
+                
                 <div class="my-3 border-t border-gray-300 dark:border-gray-700"></div>
                 
                 <li x-show="isSidebarOpen">
@@ -180,12 +202,12 @@
 </aside>
 
 <div x-bind:class="{
-    // هذا الجزء يتحكم في مساحة المحتوى الرئيسية
-    'mr-0': true
+    // تم إزالة منطق الهامش (lg:mr-64 و lg:mr-20) لأنه يتعارض مع وضع lg:relative في السايدبار
+    'mr-0': true // دائمًا لا يوجد هامش على اليمين للموبايل
 }"
-    class="main-content-area relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden transition-all duration-300 ease-linear">
+     class="main-content-area relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden transition-all duration-300 ease-linear">
 
-<header dir="rtl" class="sticky top-0 z-30 flex w-full bg-white drop-shadow-sm dark:bg-black">
+    <header dir="rtl" class="sticky top-0 z-30 flex w-full bg-white drop-shadow-sm dark:bg-black">
         <div class="flex flex-grow items-center justify-between py-4 px-4 md:px-6 border-b border-gray-200 dark:border-gray-700">
             
             <button 
@@ -279,142 +301,236 @@
 
         </div>
     </header>
-
-<main>
+    <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-            <div class="flex items-center justify-between mb-8 pb-3 border-b border-gray-200 dark:border-gray-700">
+<div class="flex items-center justify-between mb-8 pb-3 border-b border-gray-200 dark:border-gray-700">
     <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">إدارة المستخدمين</h1>
 
-    <a href="addUser.html"
-        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md">
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-        </svg>
-        إضافة مستخدم
-    </a>
+    <div class="flex gap-3">
+        
+        <a href="mangeRoles.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors shadow-md">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M5 11v11m-1-10h7m-1-2h8a2 2 0 002-2V7a2 2 0 00-2-2h-8a2 2 0 00-2 2v2z"></path>
+            </svg>
+            إدارة الأدوار
+        </a>
+
+        <a href="mangePermissions.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-teal-500 text-teal-600 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors shadow-md">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.416A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 4.641A11.954 11.954 0 002.944 12c0 2.97.942 5.728 2.67 7.954a11.955 11.955 0 008.618 4.641 11.954 11.954 0 00-2.67-7.954c0-2.97 4.03-9 9-9z"></path>
+            </svg>
+            إدارة الصلاحيات
+        </a>
+
+        <a href="addUser.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            إضافة مستخدم
+        </a>
+    </div>
 </div>
 <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
     <div class="p-6">
         <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">قائمة مديري النظام والمشرفين</h4>
     </div>
 
-    <div class="hidden lg:block">
-        <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 px-6 py-4 font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-t-xl">
-            <div class="col-span-1">الاسم</div>
-            <div class="col-span-2">البريد الإلكتروني</div>
-            <div class="col-span-1 text-center">الدور</div>
-            <div class="col-span-1 text-center">الحالة</div>
-            <div class="col-span-1 text-center">الإجراءات</div>
-        </div>
-        
-        <div class="text-sm">
+<div class="w-full overflow-x-auto">
+        <table class="min-w-full table-auto text-sm text-right">
             
-            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                <div class="col-span-1 text-gray-900 dark:text-white font-medium">علي محمد</div>
-                <div class="col-span-2 text-gray-700 dark:text-gray-300">ali.mohammed@admin.com</div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400">
-                        المدير العام
-                    </span>
-                </div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-                        نشط
-                    </span>
-                </div>
-                <div class="col-span-1 flex justify-center gap-3">
-                    <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
-                                تعديل
-                            </a>
-                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
-                                حذف
-                            </button>
-                </div>
-            </div>
+            <thead class="hidden lg:table-header-group">
+                <tr class="text-right border-t border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50">
+                    <th scope="col" class="px-6 py-4 w-1/6 rounded-tr-xl">الاسم</th>
+                    <th scope="col" class="px-6 py-4 w-2/6">البريد الإلكتروني</th>
+                    <th scope="col" class="px-6 py-4 w-1/6 text-center">الدور</th>
+                    <th scope="col" class="px-6 py-4 w-1/6 text-center">الحالة</th>
+                    <th scope="col" class="px-6 py-4 w-1/6 text-center rounded-tl-xl">الإجراءات</th>
+                </tr>
+            </thead>
+            
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                <div class="col-span-1 text-gray-900 dark:text-white font-medium">سارة فهد</div>
-                <div class="col-span-2 text-gray-700 dark:text-gray-300">sara.fahad@platform.com</div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
-                        مشرف
-                    </span>
-                </div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-                        نشط
-                    </span>
-                </div>
-                <div class="col-span-1 flex justify-center gap-3">
-                    <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
-                                تعديل
-                            </a>
-                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
-                                حذف
-                            </button>
-                </div>
-            </div>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white font-medium">
+                        علي محمد
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700 dark:text-gray-300">
+                        ali.mohammed@admin.com
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                            المدير العام
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
+                            نشط
+                        </span>
+                    </td>
+                            <td class="px-4 py-3 text-center">
+                                <div x-data="{ open: false, positionMenu(ref) { const rect = ref.getBoundingClientRect(); this.$refs.dropdown.style.left = `${rect.left}px`; this.$refs.dropdown.style.top = `${rect.bottom + 8}px`; this.$refs.dropdown.style.transformOrigin = 'top right'; } }"
+                                    @resize.window="if(open) positionMenu($el.querySelector('button'))" class="inline-block">
+                                    <button x-ref="button" @click="open = !open; $nextTick(() => positionMenu($el))" @click.outside="open = false" type="button"
+                                        class="inline-flex justify-center rounded-full border border-gray-300 dark:border-gray-700 shadow-sm p-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                    <template x-teleport="body">
+                                        <div x-show="open" x-ref="dropdown" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95"
+                                            class="absolute mt-2 w-40 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu"
+                                            aria-orientation="vertical" tabindex="-1">
+                                            <div class="py-1" dir="rtl" role="none">
+                                                <a href="edateUser.html" class="text-blue-600 dark:text-blue-300 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">تعديل</a>
+                                                <a href="#" class="text-red-600 dark:text-red-400 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">حذف</a>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </td>
+                </tr>
 
-            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                <div class="col-span-1 text-gray-900 dark:text-white font-medium">فهد خالد</div>
-                <div class="col-span-2 text-gray-700 dark:text-gray-300">fahad.khaled@platform.com</div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
-                        مشرف
-                    </span>
-                </div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-red-100 dark:bg-red-900/50 px-3 py-1 text-xs font-medium text-red-600 dark:text-red-400">
-                        موقوف
-                    </span>
-                </div>
-                <div class="col-span-1 flex justify-center gap-3">
-                   <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
-                                تعديل
-                            </a>
-                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
-                                حذف
-                            </button>
-                </div>
-            </div>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white font-medium">
+                        سارة فهد
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700 dark:text-gray-300">
+                        sara.fahad@platform.com
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
+                            مشرف
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
+                            نشط
+                        </span>
+                    </td>
+                            <td class="px-4 py-3 text-center">
+                                <div x-data="{ open: false, positionMenu(ref) { const rect = ref.getBoundingClientRect(); this.$refs.dropdown.style.left = `${rect.left}px`; this.$refs.dropdown.style.top = `${rect.bottom + 8}px`; this.$refs.dropdown.style.transformOrigin = 'top right'; } }"
+                                    @resize.window="if(open) positionMenu($el.querySelector('button'))" class="inline-block">
+                                    <button x-ref="button" @click="open = !open; $nextTick(() => positionMenu($el))" @click.outside="open = false" type="button"
+                                        class="inline-flex justify-center rounded-full border border-gray-300 dark:border-gray-700 shadow-sm p-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                    <template x-teleport="body">
+                                        <div x-show="open" x-ref="dropdown" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95"
+                                            class="absolute mt-2 w-40 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu"
+                                            aria-orientation="vertical" tabindex="-1">
+                                            <div class="py-1" dir="rtl" role="none">
+                                                <a href="edateUser.html" class="text-blue-600 dark:text-blue-300 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">تعديل</a>
+                                                <a href="#" class="text-red-600 dark:text-red-400 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">حذف</a>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </td>
+                </tr>
 
-            <div class="grid grid-cols-6 border-t border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                <div class="col-span-1 text-gray-900 dark:text-white font-medium">نورة سعد</div>
-                <div class="col-span-2 text-gray-700 dark:text-gray-300">noura.saad@platform.com</div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
-                        مشرف مالي
-                    </span>
-                </div>
-                <div class="col-span-1 text-center">
-                    <span
-                        class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-                        نشط
-                    </span>
-                </div>
-                <div class="col-span-1 flex justify-center gap-3">
-                    <a href="edateUser.html" class="ml-3 bg-blue-900 rounded-full px-4 py-1 text-white">
-                                تعديل
-                            </a>
-                            <button class="ml-3 bg-red-600 rounded-full px-4 py-1 text-white">
-                                حذف
-                            </button>
-                </div>
-            </div>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white font-medium">
+                        فهد خالد
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700 dark:text-gray-300">
+                        fahad.khaled@platform.com
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
+                            مشرف
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-red-100 dark:bg-red-900/50 px-3 py-1 text-xs font-medium text-red-600 dark:text-red-400">
+                            موقوف
+                        </span>
+                    </td>
+                            <td class="px-4 py-3 text-center">
+                                <div x-data="{ open: false, positionMenu(ref) { const rect = ref.getBoundingClientRect(); this.$refs.dropdown.style.left = `${rect.left}px`; this.$refs.dropdown.style.top = `${rect.bottom + 8}px`; this.$refs.dropdown.style.transformOrigin = 'top right'; } }"
+                                    @resize.window="if(open) positionMenu($el.querySelector('button'))" class="inline-block">
+                                    <button x-ref="button" @click="open = !open; $nextTick(() => positionMenu($el))" @click.outside="open = false" type="button"
+                                        class="inline-flex justify-center rounded-full border border-gray-300 dark:border-gray-700 shadow-sm p-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                    <template x-teleport="body">
+                                        <div x-show="open" x-ref="dropdown" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95"
+                                            class="absolute mt-2 w-40 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu"
+                                            aria-orientation="vertical" tabindex="-1">
+                                            <div class="py-1" dir="rtl" role="none">
+                                                <a href="edateUser.html" class="text-blue-600 dark:text-blue-300 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">تعديل</a>
+                                                <a href="#" class="text-red-600 dark:text-red-400 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">حذف</a>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </td>
+                </tr>
 
-        </div>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white font-medium">
+                        نورة سعد
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700 dark:text-gray-300">
+                        noura.saad@platform.com
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-yellow-100 dark:bg-yellow-900/50 px-3 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-400">
+                            مشرف مالي
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="inline-flex rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
+                            نشط
+                        </span>
+                    </td>
+                            <td class="px-4 py-3 text-center">
+                                <div x-data="{ open: false, positionMenu(ref) { const rect = ref.getBoundingClientRect(); this.$refs.dropdown.style.left = `${rect.left}px`; this.$refs.dropdown.style.top = `${rect.bottom + 8}px`; this.$refs.dropdown.style.transformOrigin = 'top right'; } }"
+                                    @resize.window="if(open) positionMenu($el.querySelector('button'))" class="inline-block">
+                                    <button x-ref="button" @click="open = !open; $nextTick(() => positionMenu($el))" @click.outside="open = false" type="button"
+                                        class="inline-flex justify-center rounded-full border border-gray-300 dark:border-gray-700 shadow-sm p-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </button>
+                                    <template x-teleport="body">
+                                        <div x-show="open" x-ref="dropdown" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95"
+                                            class="absolute mt-2 w-40 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu"
+                                            aria-orientation="vertical" tabindex="-1">
+                                            <div class="py-1" dir="rtl" role="none">
+                                                <a href="edateUser.html" class="text-blue-600 dark:text-blue-300 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">تعديل</a>
+                                                <a href="#" class="text-red-600 dark:text-red-400 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">حذف</a>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
     </div>
         </div>
     </main>
+
 </div>
 </div>
+
+
 </body>
 </html>
