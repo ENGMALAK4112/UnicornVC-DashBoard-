@@ -332,80 +332,74 @@
 
             <div class="rounded-xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 p-6 md:p-8">
 
-                <nav class="border-b border-gray-200 dark:border-gray-700 mb-6 -mt-2 overflow-x-auto whitespace-nowrap">
-                    <ul class="flex space-x-8 space-x-reverse">
-                        
-                        <li>
-                            <button @click="activeTab = 'basic'"
-                                :class="{ 
-                                    'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold': activeTab === 'basic', 
-                                    'border-transparent text-gray-500 dark:text-gray-400 hover:border-indigo-300 hover:text-indigo-600': activeTab !== 'basic' 
-                                }"
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 transition duration-150 ease-in-out">
-                                البيانات الأساسية
-                            </button>
-                        </li>
-                        
-                        <li>
-                            <button @click="activeTab = 'finance'"
-                                :class="{ 
-                                    'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold': activeTab === 'finance', 
-                                    'border-transparent text-gray-500 dark:text-gray-400 hover:border-indigo-300 hover:text-indigo-600': activeTab !== 'finance' 
-                                }"
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 transition duration-150 ease-in-out">
-                                البيانات المالية
-                            </button>
-                        </li>
+   <nav class="border-b border-gray-200 dark:border-gray-700 mb-6 -mt-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
+    <ul class="flex items-center space-x-4 space-x-reverse py-2">
+        
+        <li>
+            <button @click="activeTab = 'basic'"
+                :class="activeTab === 'basic' ? 'border-indigo-600 text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-transparent text-gray-500 hover:text-indigo-600'"
+                class="flex items-center gap-2 px-3 py-2 text-base font-medium border-b-2 transition-all duration-300 ease-in-out rounded-t-lg">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span x-show="activeTab === 'basic'" x-transition:enter.duration.400ms class="overflow-hidden">البيانات الأساسية</span>
+            </button>
+        </li>
+        
+        <li>
+            <button @click="activeTab = 'finance'"
+                :class="activeTab === 'finance' ? 'border-indigo-600 text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-transparent text-gray-500 hover:text-indigo-600'"
+                class="flex items-center gap-2 px-3 py-2 text-base font-medium border-b-2 transition-all duration-300 ease-in-out rounded-t-lg">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span x-show="activeTab === 'finance'" x-transition:enter.duration.400ms class="overflow-hidden">البيانات المالية</span>
+            </button>
+        </li>
 
-                        <li>
-                            <button @click="activeTab = 'team'"
-                                :class="{ 
-                                    'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold': activeTab === 'team', 
-                                    'border-transparent text-gray-500 dark:text-gray-400 hover:border-indigo-300 hover:text-indigo-600': activeTab !== 'team' 
-                                }"
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 transition duration-150 ease-in-out">
-                                بيانات أعضاء الفريق
-                            </button>
-                        </li>
+        <li>
+            <button @click="activeTab = 'team'"
+                :class="activeTab === 'team' ? 'border-indigo-600 text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-transparent text-gray-500 hover:text-indigo-600'"
+                class="flex items-center gap-2 px-3 py-2 text-base font-medium border-b-2 transition-all duration-300 ease-in-out rounded-t-lg">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M12 10a5 5 0 110-10 5 5 0 010 10z" />
+                </svg>
+                <span x-show="activeTab === 'team'" x-transition:enter.duration.400ms class="overflow-hidden">أعضاء الفريق</span>
+            </button>
+        </li>
 
-                        <li>
-                            <button @click="activeTab = 'market'"
-                                :class="{ 
-                                    'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold': activeTab === 'market', 
-                                    'border-transparent text-gray-500 dark:text-gray-400 hover:border-indigo-300 hover:text-indigo-600': activeTab !== 'market' 
-                                }"
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 transition duration-150 ease-in-out">
-                                بيانات تحليل السوق
-                            </button>
-                        </li>
+        <li>
+            <button @click="activeTab = 'market'"
+                :class="activeTab === 'market' ? 'border-indigo-600 text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-transparent text-gray-500 hover:text-indigo-600'"
+                class="flex items-center gap-2 px-3 py-2 text-base font-medium border-b-2 transition-all duration-300 ease-in-out rounded-t-lg">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span x-show="activeTab === 'market'" x-transition:enter.duration.400ms class="overflow-hidden">تحليل السوق</span>
+            </button>
+        </li>
 
-                        <li>
-                            <button @click="activeTab = 'documents'"
-                                :class="{ 
-                                    'border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 font-bold': activeTab === 'documents', 
-                                    'border-transparent text-gray-500 dark:text-gray-400 hover:border-indigo-300 hover:text-indigo-600': activeTab !== 'documents' 
-                                }"
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 transition duration-150 ease-in-out">
-                                المستندات
-                            </button>
-                        </li>
+        <li>
+            <button @click="activeTab = 'documents'"
+                :class="activeTab === 'documents' ? 'border-indigo-600 text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20' : 'border-transparent text-gray-500 hover:text-indigo-600'"
+                class="flex items-center gap-2 px-3 py-2 text-base font-medium border-b-2 transition-all duration-300 ease-in-out rounded-t-lg">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span x-show="activeTab === 'documents'" x-transition:enter.duration.400ms class="overflow-hidden">المستندات</span>
+            </button>
+        </li>
 
-                        <li>
-                            <button disabled @click.prevent
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 border-transparent text-gray-400 dark:text-gray-600 cursor-not-allowed transition duration-150 ease-in-out">
-                                بيانات المخاطر (قريباً)
-                            </button>
-                        </li>
+        <li>
+            <button disabled class="flex items-center px-3 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </button>
+        </li>
 
-                        <li>
-                            <button disabled @click.prevent
-                                class="inline-flex items-center px-1 pt-2 pb-3 text-base leading-5 border-b-2 border-transparent text-gray-400 dark:text-gray-600 cursor-not-allowed transition duration-150 ease-in-out">
-                                بيانات التقييم (قريباً)
-                            </button>
-                        </li>
-
-                    </ul>
-                </nav>
+    </ul>
+</nav>
                 <div class="mt-4 min-h-[400px]">
 
                     <div x-show="activeTab === 'basic'" x-transition:enter.duration.300ms>
